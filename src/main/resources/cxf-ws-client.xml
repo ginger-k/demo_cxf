@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- START SNIPPET: beans -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- <bean id="client" class="demo.spring.service.HelloWorld" factory-bean="clientFactory" 
+		factory-method="create"/> <bean id="clientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean"> 
+		<property name="serviceClass" value="demo.spring.service.HelloWorld"/> <property 
+		name="address" value="http://localhost:9002/services/HelloWorld"/> </bean> -->
+	<jaxws:client id="client"
+		address="http://localhost:8080/ws/mobile" serviceClass="com.ceair.cxf.ws.spring.client.stub.MobileAddress">
+		<!-- 日志拦截器 -->
+		<!-- 输入拦截器 -->
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+		</jaxws:inInterceptors>
+		<!-- 输出拦截器 -->
+		<jaxws:outInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+</beans>
+<!-- END SNIPPET: beans -->

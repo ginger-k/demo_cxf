@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://cxf.apache.org/jaxws 
+						http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- jax-ws的方式发布服务 -->
+<!-- 	<jaxws:endpoint 
+	  implementor="com.ceair.cxf.ws.spring.server.MobileAddressImpl" 
+	  address="/mobile" /> -->
+	  
+	  
+	<!-- cxf的server方式 -->
+	<jaxws:server address="/mobile" serviceClass="com.ceair.cxf.ws.spring.server.MobileAddress">
+		<jaxws:serviceBean>
+			<bean class="com.ceair.cxf.ws.spring.server.MobileAddressImpl"/>
+		</jaxws:serviceBean>
+		<!-- 日志拦截器 -->
+		<!-- 输入拦截器 -->
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+		</jaxws:inInterceptors>
+		<!-- 输出拦截器 -->
+		<jaxws:outInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+		</jaxws:outInterceptors>
+	</jaxws:server>
+	
+	
+</beans>
